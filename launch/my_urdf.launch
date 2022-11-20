@@ -1,0 +1,14 @@
+<launch>
+    <!--Open empty underwater world into Gazebo.
+    World has to be open first to be able to spawn the robot within it -->
+    <include file="$(find uuv_gazebo_worlds)/launch/empty_underwater_world.launch"/>
+
+    <!--  Load the robot description from the .xacro file-->
+    <param name="robot_description" command="xacro '$(find ris_project)/xacro/myrobot.xacro'"/>
+
+    <!--  Spawn the urdf model into gazebo-->
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model myrobot"/>
+    
+    <!-- Enable teleoperation by wrench messages. This uses geometry_msgs/Wrench messages-->
+    <node name="teleop_wrench_keyboard" pkg="ris_project" type="teleop_wrench_keyboard.py"/>
+</launch>

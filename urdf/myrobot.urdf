@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+
+<!-- CLICHICI CALIN CONSTANTIN-->
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="myrobot">
+
+<!--############################################################################-->
+<!--######################- -         MATERIALS        - -######################-->
+
+    <material name="dark_red">
+        <color rgba="0.54 0 0 1"/>
+    </material>
+
+    <material name="dark_gray">
+        <color rgba="0.34 0.34 0.34 1"/>
+    </material>
+    
+    <material name="white">
+        <color rgba="1 1 1 1"/>
+    </material>
+
+
+<!--############################################################################-->
+<!--######################- -     XACRO  PROPERTIES    - -######################-->
+
+<xacro:property name="axle_size" value="0.07 0.3 0.07"/>
+<xacro:property name="thruster_size" value="0.35 0.06 0.14"/>
+<xacro:property name="exhaust_size" value="0.05 0.04 0.09"/>
+<xacro:property name="axis_orientation" value="0 1 0"/>
+
+<!--############################################################################-->
+<!--######################- -      BASE DEFINITION     - -######################-->
+
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="0.81 0.1 0.2"/>
+            </geometry>
+            <material name="dark_red"/>
+        </visual>
+    </link>
+
+    <link name="front_axle">
+        <visual>
+            <geometry>
+                <box size="${axle_size}"/>
+            </geometry>
+            <material name="dark_gray"/>
+        </visual>
+    </link>
+
+    <joint name="base_to_front_axle" type="fixed">
+        <parent link="base_link"/>
+        <child link="front_axle"/>
+        <origin xyz="0.3 0 0"/>
+    </joint>
+
+    <link name="back_axle">
+        <visual>
+            <geometry>
+                <box size="${axle_size}"/>
+            </geometry>
+            <material name="dark_gray"/>
+        </visual>
+    </link>
+
+    <joint name="base_to_back_axle" type="fixed">
+        <parent link="base_link"/>
+        <child link="back_axle"/>
+        <origin xyz="-0.3 0 0"/>
+    </joint>
+
+<!--############################################################################-->
+<!--######################- -      FRONT THURSTERS     - -######################-->
+
+    <link name="front_left_thruster">
+        <visual>
+            <geometry>
+                <box size="${thruster_size}"/>
+            </geometry>
+            <origin xyz="-0.02 0.03 0"/>
+            <material name="dark_red"/>
+        </visual>
+    </link>
+
+    <joint name="base_to_front_left_thruster" type="continuous">
+        <parent link="front_axle"/>
+        <child link="front_left_thruster"/>
+        <axis xyz="${axis_orientation}"/>
+        <origin xyz="0 0.15 0"/>
+    </joint>
+
+    <link name="front_right_thruster">
+        <visual>
+            <geometry>
+                <box size="${thruster_size}"/>
+            </geometry>
+            <origin xyz="-0.02 -0.03 0"/>
+            <material name="dark_red"/>
+        </visual>
+    </link>
+
+    <joint name="base_to_front_right_thruster" type="continuous">
+        <parent link="front_axle"/>
+        <child link="front_right_thruster"/>
+        <axis xyz="${axis_orientation}"/>
+        <origin xyz="0 -0.15 0"/>
+    </joint>
+
+<!--############################################################################-->
+<!--######################- -      BACK  THRUSTERS     - -######################-->
+
+    <link name="back_left_thruster">
+        <visual>
+            <geometry>
+                <box size="${thruster_size}"/>
+            </geometry>
+            <origin xyz="-0.02 0.03 0"/>
+            <material name="dark_red"/>
+        </visual>
+    </link>
+
+    <joint name="base_to_back_left_thruster" type="continuous">
+        <parent link="back_axle"/>
+        <child link="back_left_thruster"/>
+        <axis xyz="${axis_orientation}"/>
+        <origin xyz="0 0.15 0"/>
+    </joint>
+
+    <link name="back_right_thruster">
+        <visual>
+            <geometry>
+                <box size="${thruster_size}"/>
+            </geometry>
+            <origin xyz="-0.02 -0.03 0"/>
+            <material name="dark_red"/>
+        </visual>
+    </link>
+
+    <joint name="base_to_back_right_thruster" type="continuous">
+        <parent link="back_axle"/>
+        <child link="back_right_thruster"/>
+        <axis xyz="${axis_orientation}"/>
+        <origin xyz="0 -0.15 0"/>
+    </joint>
+
+<!--############################################################################-->
+<!--####################- -      EXHAUST  DEFINITION     - -####################-->
+
+    <link name="front_left_exhaust">
+        <visual>
+            <geometry>
+                <box size="${exhaust_size}"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+
+    <joint name="base_to_front_left_exhaust" type="fixed">
+        <parent link="front_left_thruster"/>
+        <child link="front_left_exhaust"/>
+        <origin xyz="-0.195 0.03 0"/>
+    </joint>
+
+    <link name="front_right_exhaust">
+        <visual>
+            <geometry>
+                <box size="${exhaust_size}"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+
+    <joint name="base_to_front_right_exhaust" type="fixed">
+        <parent link="front_right_thruster"/>
+        <child link="front_right_exhaust"/>
+        <origin xyz="-0.195 -0.03 0"/>
+    </joint>
+
+    <link name="back_left_exhaust">
+        <visual>
+            <geometry>
+                <box size="${exhaust_size}"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+
+    <joint name="base_to_back_left_exhaust" type="fixed">
+        <parent link="back_left_thruster"/>
+        <child link="back_left_exhaust"/>
+        <origin xyz="-0.195 0.03 0"/>
+    </joint>
+
+    <link name="back_right_exhaust">
+        <visual>
+            <geometry>
+                <box size="${exhaust_size}"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+
+    <joint name="base_to_back_right_exhaust" type="fixed">
+        <parent link="back_right_thruster"/>
+        <child link="back_right_exhaust"/>
+        <origin xyz="-0.195 -0.03 0"/>
+    </joint>
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+          <robotNamespace>/</robotNamespace>
+        </plugin>
+    </gazebo>
+
+</robot>

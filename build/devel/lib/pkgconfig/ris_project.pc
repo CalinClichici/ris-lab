@@ -1,0 +1,8 @@
+prefix=/home/kleen/ris_ws/src/ris_project/build/devel
+
+Name: ris_project
+Description: Description of ris_project
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
